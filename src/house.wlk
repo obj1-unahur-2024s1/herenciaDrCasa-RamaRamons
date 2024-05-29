@@ -16,7 +16,7 @@ class Persona{
 	method destruirCelulas(valor){
 		celulas = celulas - valor
 	}
-	method celulasAmenazadasPorAgresivas() = enfermedades.filter{e=>e.esAgresiva()}.sum{e=>e.celasAmenazadas()}
+	method celulasAmenazadasPorAgresivas() = enfermedades.filter{e=>e.esAgresiva(self)}.sum{e=>e.celasAmenazadas()}
 	
 }
 class Enfermedad{
