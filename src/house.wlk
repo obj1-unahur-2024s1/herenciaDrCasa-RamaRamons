@@ -17,7 +17,9 @@ class Persona{
 		celulas = celulas - valor
 	}
 	method celulasAmenazadasPorAgresivas() = enfermedades.filter{e=>e.esAgresiva(self)}.sum{e=>e.celulasAmenazadas()}
-	
+	method recibirMadicamento(dosis){
+		enfermedades.forEach{e=>e.atenuar(15*dosis)}
+	}
 }
 class Enfermedad{
 	var celulas
@@ -42,4 +44,26 @@ class EnfermedadAutoInmune inherits Enfermedad{
 		dias += 1
 	}
 	method esAgresiva(persona) = dias >= 30
+}
+class JefeMedico inherits Medico{
+	const empleados = []
+	
+	override method atender(paciente){
+		empleados.anyOne().atender(paciente)
+	}
+	
+}
+class Medico inherits Persona{
+	var dosis 
+	method atender(paciente){
+		paciente.recibirMadicamento(dosis)
+		
+	}
+	override method contraer(enfermedad){
+		enfermedades.add(enfermedad)
+		self.atender(self)
+	}
+}
+object manolito{
+	
 }
